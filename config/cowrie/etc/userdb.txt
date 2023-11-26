@@ -1,0 +1,60 @@
+# Example userdb.txt 
+# This file may be copied to etc/userdb.txt.
+# If etc/userdb.txt is not present, built-in defaults will be used.
+#
+# ':' separated fields, file is processed line for line
+# processing will stop on first match
+# 
+# Field #1 contains the username
+# Field #2 is currently unused
+# Field #3 contains the password 
+# '*' for any username or password
+# '!' at the start of a password will not grant this password access
+# '/' can be used to write a regular expression 
+#
+
+# downloaded from https://github.com/ryanoleary26/honeypots/blob/main/cowrie/credentials/userdb.txt
+
+# Disable common combos
+*:x:!123456
+*:x:!password
+*:x:!nproc
+*:x:!1234
+*:x:!admin
+*:x:!centos
+*:x:!ubnt
+*:x:!cameras
+*:x:!user
+*:x:!minecraft
+*:x:!toor
+*:x:!ftpuser
+*:x:!postgres
+*:x:!default
+*:x:!support
+*:x:!git
+*:x:!devops
+*:x:!ansible
+*:x:!abc123
+*:x:!www
+
+# Disable permutations of 'test'
+/test[0-9a-z-A-Z]*/i:x:!*
+
+# Disable common passwords for 'oracle'
+oracle:x:!/Oracle[0-9a-zA-Z]*/i
+
+# Disable all passwords containing popular words
+*:x:!/[a-zA-Z0-9]*honey[a-zA-Z0-9]*/i
+*:x:!/[a-zA-Z0-9]*test[a-zA-Z0-9]*/i
+*:x:!/[a-zA-Z0-9]*root[a-zA-Z0-9]*/i
+*:x:!/[a-zA-Z0-9]*ubuntu[a-zA-Z0-9]*/i
+*:x:!/[a-zA-Z0-9]*admin[a-zA-Z0-9]*/i
+*:x:!/[a-zA-Z0-9]*password[a-zA-Z0-9]*/i
+*:x:!/^[0-9]{1,8}/
+
+# Disable passwords with length less than 6 characters (also disabled empty logins)
+*:x:!/^[a-zA-Z0-9]{0,5}$/i
+
+knockknockwhosthere:x:!knockknockwhosthere
+
+*:x:*
